@@ -61,7 +61,9 @@ async function api(req, env) {
 			return json({ error: "Token salah, kedaluwarsa, atau sudah digunakan." }, 401);
 		}
 		const raw = random(), sid = crypto.randomUUID(), expires = now + 7200;
-		if (!(await env.DB.batch([env.DB.prepare("UPDATE access_tokens SET used_at=? WHERE id=? AND used_at IS NULL").bind(now, row.id), env.DB.prepare("INSERT INTO sessions(id,session_hash,incident_id,expires_at,created_at) VALUES(?,?,?,?,?)").bind(sid, await hash(raw), row.incident_id, expires, now)]))[0].success) return json({ error: "Token sudah digunakan." }, 409);
+		const claim = await env.DB.prepare("UPDATE access_tokens SET used_at=? WHERE id=? AND used_at IS NULL").bind(now, row.id).run();
+		if (!claim.success || claim.meta.changes !== 1) return json({ error: "Token sudah digunakan." }, 409);
+		await env.DB.prepare("INSERT INTO sessions(id,session_hash,incident_id,expires_at,created_at) VALUES(?,?,?,?,?)").bind(sid, await hash(raw), row.incident_id, expires, now).run();
 		return json({
 			ok: true,
 			incidentId: row.incident_id
