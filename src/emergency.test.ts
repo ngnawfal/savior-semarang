@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {dashboardRoles,formatEta,nearestAvailableHospital,patientRecordIsValid,positionAlongRoute} from './emergency';
+import {dashboardEntryCards,dashboardRoles,formatEta,nearestAvailableHospital,patientRecordIsValid,positionAlongRoute} from './emergency';
 
 const hospitals=[
  {name:'Penuh dekat',pos:[-6.99,110.42] as [number,number],beds:0,label:'penuh'},
@@ -25,6 +25,10 @@ describe('patientRecordIsValid',()=>{
 describe('dashboard terpisah',()=>{
  it('menyediakan lima dashboard sesuai peran',()=>{
   expect(dashboardRoles()).toEqual(['callcenter','reporter','nurse','hospital','admin']);
+ });
+ it('menampilkan kelima pilihan masuk pada halaman awal',()=>{
+  expect(dashboardEntryCards().map(card=>card.role)).toEqual(dashboardRoles());
+  expect(dashboardEntryCards()).toHaveLength(5);
  });
 });
 

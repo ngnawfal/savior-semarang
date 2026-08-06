@@ -2,6 +2,13 @@ export type HospitalRecord={name:string;pos:[number,number];beds:number;label:st
 export type PatientRecord={condition:string;name:string;address:string;identityFile:File|null};
 export type DashboardRole='callcenter'|'reporter'|'nurse'|'hospital'|'admin';
 export function dashboardRoles():DashboardRole[]{return ['callcenter','reporter','nurse','hospital','admin'];}
+export function dashboardEntryCards(){return [
+ {role:'callcenter' as const,title:'Call center',description:'Verifikasi laporan, token, dan dispatch ambulans'},
+ {role:'reporter' as const,title:'Pelapor',description:'Kamera, lokasi, dan kondisi awal korban'},
+ {role:'nurse' as const,title:'Perawat',description:'Navigasi ambulans dan asesmen pasien'},
+ {role:'hospital' as const,title:'Rumah sakit',description:'Rujukan masuk dan kapasitas IGD'},
+ {role:'admin' as const,title:'Admin',description:'Monitor sistem, armada, akun, dan audit'},
+];}
 
 function distanceKm(a:[number,number],b:[number,number]){
  const rad=(value:number)=>value*Math.PI/180;
