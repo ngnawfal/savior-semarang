@@ -23,12 +23,12 @@ describe('patientRecordIsValid',()=>{
 });
 
 describe('dashboard terpisah',()=>{
- it('menyediakan lima dashboard sesuai peran',()=>{
-  expect(dashboardRoles()).toEqual(['callcenter','reporter','nurse','hospital','admin']);
+ it('menyediakan enam dashboard sesuai dokumen konsep',()=>{
+  expect(dashboardRoles()).toEqual(['reporter','nurse','ambulance','callcenter','hospital','admin']);
  });
- it('menampilkan kelima pilihan masuk pada halaman awal',()=>{
+ it('menampilkan keenam pilihan masuk pada halaman awal',()=>{
   expect(dashboardEntryCards().map(card=>card.role)).toEqual(dashboardRoles());
-  expect(dashboardEntryCards()).toHaveLength(5);
+  expect(dashboardEntryCards()).toHaveLength(6);
  });
 });
 

@@ -1,13 +1,14 @@
 export type HospitalRecord={name:string;pos:[number,number];beds:number;label:string};
 export type PatientRecord={condition:string;name:string;address:string;identityFile:File|null};
-export type DashboardRole='callcenter'|'reporter'|'nurse'|'hospital'|'admin';
-export function dashboardRoles():DashboardRole[]{return ['callcenter','reporter','nurse','hospital','admin'];}
+export type DashboardRole='reporter'|'nurse'|'ambulance'|'callcenter'|'hospital'|'admin';
+export function dashboardRoles():DashboardRole[]{return ['reporter','nurse','ambulance','callcenter','hospital','admin'];}
 export function dashboardEntryCards(){return [
- {role:'callcenter' as const,title:'Call center',description:'Verifikasi laporan, token, dan dispatch ambulans'},
- {role:'reporter' as const,title:'Pelapor',description:'Kamera, lokasi, dan kondisi awal korban'},
- {role:'nurse' as const,title:'Perawat',description:'Navigasi ambulans dan asesmen pasien'},
+ {role:'reporter' as const,title:'Pelapor',description:'Panic button, laporan, kamera bertimestamp, serta pelacakan'},
+ {role:'nurse' as const,title:'Perawat',description:'Data dan riwayat kondisi serta identitas korban'},
+ {role:'ambulance' as const,title:'Ambulance',description:'Tracking ambulans, rumah sakit, dan tombol mulai perjalanan'},
+ {role:'callcenter' as const,title:'Call Center 112',description:'Verifikasi laporan dan penentuan ambulans serta IGD'},
  {role:'hospital' as const,title:'Rumah sakit',description:'Rujukan masuk dan kapasitas IGD'},
- {role:'admin' as const,title:'Admin',description:'Monitor sistem, armada, akun, dan audit'},
+ {role:'admin' as const,title:'Admin',description:'Tracking seluruh pengguna dan operasional sistem'},
 ];}
 
 function distanceKm(a:[number,number],b:[number,number]){
