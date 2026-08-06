@@ -1,5 +1,7 @@
 export type HospitalRecord={name:string;pos:[number,number];beds:number;label:string};
 export type PatientRecord={condition:string;name:string;address:string;identityFile:File|null};
+export type DashboardRole='callcenter'|'reporter'|'nurse'|'hospital'|'admin';
+export function dashboardRoles():DashboardRole[]{return ['callcenter','reporter','nurse','hospital','admin'];}
 
 function distanceKm(a:[number,number],b:[number,number]){
  const rad=(value:number)=>value*Math.PI/180;
