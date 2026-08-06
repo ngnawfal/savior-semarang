@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {nearestAvailableHospital,patientRecordIsValid} from './emergency';
+import {formatEta,nearestAvailableHospital,patientRecordIsValid,positionAlongRoute} from './emergency';
 
 const hospitals=[
  {name:'Penuh dekat',pos:[-6.99,110.42] as [number,number],beds:0,label:'penuh'},
@@ -19,5 +19,18 @@ describe('patientRecordIsValid',()=>{
  });
  it('memerlukan kondisi pasien',()=>{
   expect(patientRecordIsValid({condition:'',name:'Budi',address:'Semarang',identityFile:null})).toBe(false);
+ });
+});
+
+describe('simulasi perjalanan ambulans',()=>{
+ it('ETA menghitung mundur dan berhenti di nol',()=>{
+  expect(formatEta(372)).toBe('06:12');
+  expect(formatEta(-3)).toBe('00:00');
+ });
+ it('posisi bergerak mengikuti keseluruhan ruas rute',()=>{
+  const route:[[number,number],[number,number],[number,number]]=[[0,0],[0,1],[0,3]];
+  expect(positionAlongRoute(route,0)).toEqual([0,0]);
+  expect(positionAlongRoute(route,0.5)).toEqual([0,1.5]);
+  expect(positionAlongRoute(route,1)).toEqual([0,3]);
  });
 });
